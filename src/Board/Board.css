@@ -1,9 +1,8 @@
 .board {
     --board-row-size: calc(100% / var(--board-rows));
     --board-col-size: calc(100% / var(--board-cols));
-    margin-top: 100px;
 
-    border: 1px solid black;
+    box-shadow: inset 1px 1px black, inset -1px -1px black;
     width: 100%;
     aspect-ratio: 1;
     background-image: repeating-conic-gradient(lightgray 0% 25%, white 0% 50%);

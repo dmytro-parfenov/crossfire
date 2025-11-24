@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, type FC, type PointerEventHandler, type PropsWithChildren } from "react";
+import { useCallback, useRef, type FC, type PointerEventHandler, type PropsWithChildren } from "react";
 import './Board.css';
 
-const resolveSection = (sections: number, size: number, pointer: number) => {
+const resolveBoardSection = (sections: number, size: number, pointer: number) => {
     return Math.floor(pointer / (size / sections)) + 1;
 }
 
@@ -14,9 +14,6 @@ type Props = {
 export const Board: FC<PropsWithChildren<Props>> = ({ rows, cols, onClick, children }) => {
     const boardElementRef = useRef<HTMLDivElement>(null);
 
-    /**
-     * TODO: move to the hook
-     */
     const handleClick = useCallback<PointerEventHandler<HTMLDivElement>>((event) => {
         if (!boardElementRef.current) {
             return;
@@ -27,11 +24,15 @@ export const Board: FC<PropsWithChildren<Props>> = ({ rows, cols, onClick, child
         const x = event.nativeEvent.clientX - left;
         const y = event.nativeEvent.clientY - top;
 
-        const row = resolveSection(rows, height, y);
-        const col = resolveSection(cols, width, x);
+        const row = resolveBoardSection(rows, height, y);
+        const col = resolveBoardSection(cols, width, x);
 
         onClick?.(row, col);
     }, [rows, cols, onClick]);
 
-    return <div className="board" ref={boardElementRef} style={{ '--board-rows': rows, '--board-cols': cols }} onClick={handleClick}>{children}</div>
+    return <div
+        className="board"
+        ref={boardElementRef}
+        style={{ '--board-rows': rows, '--board-cols': cols }}
+        onClick={handleClick}>{children}</div>
 }

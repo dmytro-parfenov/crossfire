@@ -8,9 +8,10 @@ type Props = {
     type: PieceType;
     row: number;
     col: number;
+    onClick?: () => void;
 }
 
-export const Piece: FC<Props> = ({ type, row, col }) => {
+export const Piece: FC<Props> = ({ type, row, col, onClick }) => {
     const pieceIcon = useMemo(() => {
         switch (type) {
             case "Pawn":
@@ -20,5 +21,10 @@ export const Piece: FC<Props> = ({ type, row, col }) => {
         }
     }, [type]);
 
-    return <img className="piece" style={{ '--piece-row': row, '--piece-col': col }} src={pieceIcon} alt={type} />;
+    return <img
+        className="piece"
+        style={{ '--piece-row': row, '--piece-col': col }}
+        src={pieceIcon}
+        alt={type}
+        onClick={onClick} />;
 }
