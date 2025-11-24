@@ -1,0 +1,1 @@
+export type PieceType = 'Pawn' | 'Bishop';
