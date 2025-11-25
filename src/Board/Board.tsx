@@ -11,7 +11,12 @@ type Props = {
     onClick?: (row: number, col: number) => void;
 }
 
-export const Board: FC<PropsWithChildren<Props>> = ({ rows, cols, onClick, children }) => {
+export const Board: FC<PropsWithChildren<Props>> = ({
+    rows,
+    cols,
+    onClick,
+    children
+}) => {
     const boardElementRef = useRef<HTMLDivElement>(null);
 
     const handleClick = useCallback<PointerEventHandler<HTMLDivElement>>((event) => {
@@ -21,8 +26,8 @@ export const Board: FC<PropsWithChildren<Props>> = ({ rows, cols, onClick, child
 
         const { width, height, top, left } = boardElementRef.current.getBoundingClientRect();
 
-        const x = event.nativeEvent.clientX - left;
-        const y = event.nativeEvent.clientY - top;
+        const x = event.clientX - left;
+        const y = event.clientY - top;
 
         const row = resolveBoardSection(rows, height, y);
         const col = resolveBoardSection(cols, width, x);
@@ -33,6 +38,9 @@ export const Board: FC<PropsWithChildren<Props>> = ({ rows, cols, onClick, child
     return <div
         className="board"
         ref={boardElementRef}
-        style={{ '--board-rows': rows, '--board-cols': cols }}
+        style={{
+            '--board-rows': rows,
+            '--board-cols': cols
+        }}
         onClick={handleClick}>{children}</div>
 }

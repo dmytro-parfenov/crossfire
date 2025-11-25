@@ -57,6 +57,8 @@ export const App: FC = () => {
           type={type}
           row={row}
           col={col}
+          disabled={Boolean(selectedPieceId)}
+          selected={selectedPieceId === id}
           onClick={setSelectedPieceId} />)}
     </ Board>
   </main>
