@@ -4,7 +4,7 @@
 
     box-shadow: inset 1px 1px black, inset -1px -1px black;
     width: 100%;
-    aspect-ratio: 1;
+    aspect-ratio: var(--board-cols) / var(--board-rows);
     background-image: repeating-conic-gradient(lightgray 0% 25%, white 0% 50%);
     background-size: calc(var(--board-col-size) * 2) calc(var(--board-row-size) * 2);
     position: relative;
