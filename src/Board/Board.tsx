@@ -1,4 +1,4 @@
-import { useCallback, useRef, type FC, type PointerEventHandler, type PropsWithChildren } from "react";
+import {type FC, type PointerEventHandler, type PropsWithChildren, useCallback, useRef} from "react";
 import './Board.css';
 
 const resolveBoardSection = (sections: number, size: number, pointer: number) => {
@@ -12,19 +12,19 @@ type Props = {
 }
 
 export const Board: FC<PropsWithChildren<Props>> = ({
-    rows,
-    cols,
-    onClick,
-    children
-}) => {
+                                                        rows,
+                                                        cols,
+                                                        onClick,
+                                                        children
+                                                    }) => {
     const boardElementRef = useRef<HTMLDivElement>(null);
 
     const handleClick = useCallback<PointerEventHandler<HTMLDivElement>>((event) => {
-        if (!boardElementRef.current) {
+        if (!boardElementRef.current || event.defaultPrevented) {
             return;
         }
 
-        const { width, height, top, left } = boardElementRef.current.getBoundingClientRect();
+        const {width, height, top, left} = boardElementRef.current.getBoundingClientRect();
 
         const x = event.clientX - left;
         const y = event.clientY - top;

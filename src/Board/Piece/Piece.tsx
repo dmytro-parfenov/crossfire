@@ -1,6 +1,6 @@
-import { useCallback, useMemo, type FC } from "react";
+import {type FC, type PointerEventHandler, useCallback, useMemo} from "react";
 import './Piece.css';
-import type { PieceType } from "../../types";
+import type {PieceType} from "../../types";
 import Pawn from '../../assets/pieces/Pawn.svg';
 import Bishop from '../../assets/pieces/Bishop.svg';
 
@@ -15,14 +15,14 @@ type Props = {
 }
 
 export const Piece: FC<Props> = ({
-    id,
-    type,
-    row,
-    col,
-    selected,
-    disabled,
-    onClick
-}) => {
+                                     id,
+                                     type,
+                                     row,
+                                     col,
+                                     selected,
+                                     disabled,
+                                     onClick
+                                 }) => {
     const pieceIcon = useMemo(() => {
         switch (type) {
             case "Pawn":
@@ -32,7 +32,11 @@ export const Piece: FC<Props> = ({
         }
     }, [type]);
 
-    const handleClick = useCallback(() => onClick?.(id), [id, onClick])
+    const handleClick = useCallback<PointerEventHandler<HTMLImageElement>>((event) => {
+        event.preventDefault();
+
+        onClick?.(id)
+    }, [id, onClick])
 
     return <div
         className="piece"
@@ -47,6 +51,6 @@ export const Piece: FC<Props> = ({
             className="icon"
             src={pieceIcon}
             alt={type}
-            onClick={handleClick} />
+            onClick={handleClick}/>
     </div>;
 }
